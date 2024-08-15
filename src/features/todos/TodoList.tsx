@@ -16,9 +16,14 @@ const Todolist = () => {
     }, [todoStatus, dispatch])
 
     return (
-        <div>
+        <div className="w-full max-w-md">
             {todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} onDelete={() => dispatch(deleteTodo(todo.id))} onToggle={() => dispatch(toggleCompleted(todo.id))} />
+                <TodoItem 
+                key={todo.id} 
+                todo={todo} 
+                onDelete={() => dispatch(deleteTodo(todo.id))} 
+                onToggle={() => dispatch(toggleCompleted(todo.id))} 
+                />
             ))}
         </div>
     )
