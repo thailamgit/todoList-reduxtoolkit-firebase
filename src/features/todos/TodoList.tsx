@@ -15,6 +15,14 @@ const Todolist = () => {
         }
     }, [todoStatus, dispatch])
 
+    const handleClearAll = () => {
+        const confirmed = window.confirm('Are you sure want to clear all? This action can not be undone')
+
+        if(confirmed) {
+            dispatch(clearTodos())
+        }
+    }
+
     return (
         <div className="w-full max-w-md">
             {todos.map((todo) => (
@@ -28,7 +36,7 @@ const Todolist = () => {
 
             {todos.length > 0 && (
                 <button 
-                onClick={() => dispatch(clearTodos())}
+                onClick={handleClearAll}
                 className="w-full bg-blue-500 hover:bg-blue-700 text-white p-2 rounded mt-4">
                     Clear All
                 </button>
