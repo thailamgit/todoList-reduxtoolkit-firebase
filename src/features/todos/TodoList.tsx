@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { fetchTodos, deleteTodo, toggleCompleted } from "./todosSlice";
+import { fetchTodos, deleteTodo, toggleCompleted, clearTodos } from "./todosSlice";
 import TodoItem from "./TodoItem";
 
 const Todolist = () => {
@@ -25,6 +25,14 @@ const Todolist = () => {
                 onToggle={() => dispatch(toggleCompleted(todo.id))} 
                 />
             ))}
+
+            {todos.length > 0 && (
+                <button 
+                onClick={() => dispatch(clearTodos())}
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white p-2 rounded mt-4">
+                    Clear All
+                </button>
+            )}
         </div>
     )
 }

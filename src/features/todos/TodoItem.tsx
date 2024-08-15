@@ -9,7 +9,7 @@ interface TodoItemProps {
 
 const TodoItem: React.FC<TodoItemProps> = ({todo, onDelete, onToggle}) => {
     return (
-        <div className="flex items-center justify-between bg-white p-2 rounded shadow mb-2">
+        <div className="flex items-center justify-between bg-white p-2 rounded shadow mb-1">
             <div className="flex items-center">
                 <input type="checkbox" 
                 checked={todo.completed} 

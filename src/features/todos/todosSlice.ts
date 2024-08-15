@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, writeBatch } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export interface Todo {
@@ -34,6 +34,19 @@ export const deleteTodo = createAsyncThunk('todos/delete', async (id: string) =>
     return id
 })
 
+export const clearTodos = createAsyncThunk('todos/clearTodos', async () => {
+    const todosRef = collection(db, 'todos')
+    const batch = writeBatch(db)
+
+    const querySnapshot = await getDocs(todosRef)
+    querySnapshot.forEach((doc) => {
+        batch.delete(doc.ref)
+    })
+
+    await batch.commit()
+    return[]
+})
+
 const todoSlice = createSlice({
     name: 'todos',
     initialState,
@@ -59,6 +72,9 @@ const todoSlice = createSlice({
             })
             .addCase(deleteTodo.fulfilled, (state, action) => {
                 state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+            })
+            .addCase(clearTodos.fulfilled, (state) => {
+                state.todos = []
             })
     }
 })

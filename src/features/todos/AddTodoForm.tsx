@@ -21,9 +21,9 @@ const AddTodoForm = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Add new todo"
-            className="flex-1 p-2 border border-gray-300 rounded"/>
+            className="flex-1 mb-2 p-2 border border-gray-300 rounded"/>
             <button type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded">
+            className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
                 Add</button>
         </form>
     )
