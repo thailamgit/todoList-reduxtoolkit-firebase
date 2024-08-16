@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { fetchTodos, deleteTodo, toggleCompleted, clearTodos } from "./todosSlice";
+import { fetchTodos, deleteTodo, toggleCompleted, clearTodos, Todo } from "./todosSlice";
 import TodoItem from "./TodoItem";
 
 const Todolist = () => {
@@ -14,7 +14,7 @@ const Todolist = () => {
             dispatch(fetchTodos())
         }
     }, [todoStatus, dispatch])
-
+    
     const handleClearAll = () => {
         const confirmed = window.confirm('Are you sure want to clear all? This action can not be undone')
 

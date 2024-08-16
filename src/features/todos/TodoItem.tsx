@@ -14,11 +14,15 @@ const TodoItem: React.FC<TodoItemProps> = ({todo, onDelete, onToggle}) => {
                 <input type="checkbox" 
                 checked={todo.completed} 
                 onChange={onToggle}
-                className="mr-2"/>
-                <span className={todo.completed ? 'line-through' : ''}>{todo.text}</span>
+                className="mr-2"
+                />
+                <div className="flex flex-col">
+                    <span className="text-sm semi-bold text-gray-500">{todo.date}</span>
+                    <span className={todo.completed ? 'line-through' : ''}>{todo.text}</span>
+                </div>
             </div>
             <button onClick={onDelete}
-            className="text-red-500 hover:text-red-700">
+            className="text-red-500 hover:text-red-700 rounded">
                 Delete
             </button>
         </div>

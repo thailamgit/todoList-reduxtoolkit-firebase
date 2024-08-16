@@ -6,6 +6,7 @@ export interface Todo {
     id: string
     text: string
     completed: boolean
+    date: string
 }
 
 interface TodoState {
@@ -23,8 +24,8 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
     return querySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})) as Todo[]
 })
 
-export const addTodo = createAsyncThunk('todo/add', async (text: string)=> {
-    const newTodo = {text, completed: false}
+export const addTodo = createAsyncThunk('todo/add', async ({text, date}: {text: string, date: string})=> {
+    const newTodo = {text, completed: false, date}
     const docRef = await addDoc(collection(db, 'todos'), newTodo)
     return {id: docRef.id, ...newTodo} as Todo
 }) 
