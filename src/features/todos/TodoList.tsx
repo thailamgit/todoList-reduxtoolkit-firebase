@@ -23,22 +23,35 @@ const Todolist = () => {
         }
     }
 
+    const todosByDate = todos.reduce((acc: {[date: string]: Todo[]}, todo) => {
+        const date = todo.date
+        if(!acc[date]) {
+            acc[date] = []
+        }
+        acc[date].push(todo)
+        return acc
+    }, {})
+
     return (
         <div className="w-full max-w-md">
-            {todos.map((todo) => (
-                <TodoItem 
-                key={todo.id} 
-                todo={todo} 
-                onDelete={() => dispatch(deleteTodo(todo.id))} 
-                onToggle={() => dispatch(toggleCompleted(todo.id))} 
-                />
+            {Object.keys(todosByDate).map((date) => (
+                <div key={date}>
+                    <h2 className="text-xl font-bold mb-2">{date}</h2>
+                    {todosByDate[date].map((todo) => (
+                        <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        onDelete={() => dispatch(deleteTodo(todo.id))}
+                        onToggle={() => dispatch(toggleCompleted(todo.id))}/>
+                    ))}
+                </div>
             ))}
-
             {todos.length > 0 && (
-                <button 
+                <button
                 onClick={handleClearAll}
-                className="w-full bg-blue-500 hover:bg-blue-700 text-white p-2 rounded mt-4">
-                    Clear All
+                className="w-full bg-blue-500 text-white hover:bg-blue-700 rounded p-2 mt-4"
+                >
+                    Clear all
                 </button>
             )}
         </div>

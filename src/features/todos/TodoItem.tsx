@@ -9,7 +9,7 @@ interface TodoItemProps {
 
 const TodoItem: React.FC<TodoItemProps> = ({todo, onDelete, onToggle}) => {
     return (
-        <div className="flex items-center justify-between bg-white p-2 rounded shadow mb-1">
+        <div className="flex items-center justify-between bg-white p-3 rounded shadow mb-1">
             <div className="flex items-center">
                 <input type="checkbox" 
                 checked={todo.completed} 
@@ -17,8 +17,8 @@ const TodoItem: React.FC<TodoItemProps> = ({todo, onDelete, onToggle}) => {
                 className="mr-2"
                 />
                 <div className="flex flex-col">
-                    <span className="text-sm semi-bold text-gray-500">{todo.date}</span>
                     <span className={todo.completed ? 'line-through' : ''}>{todo.text}</span>
+                    {todo.time && <span className="ml-0 text-green-500">{todo.time}</span>}
                 </div>
             </div>
             <button onClick={onDelete}

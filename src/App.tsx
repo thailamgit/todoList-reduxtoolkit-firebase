@@ -8,7 +8,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className='min-h-green bg-gray-100 flex-col items-center p-4'>
-        <h1 className='text-3xl font-bold mb-4'>Todo List</h1>
+        <h1 className='text-3xl font-bold mb-4 text-center'>Todo List</h1>
         <AddTodoForm />
         <Todolist />
       </div>

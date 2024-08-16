@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { collection, getDocs, addDoc, deleteDoc, doc, writeBatch } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, writeBatch, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export interface Todo {
@@ -7,6 +7,7 @@ export interface Todo {
     text: string
     completed: boolean
     date: string
+    time: string
 }
 
 interface TodoState {
@@ -21,11 +22,14 @@ const initialState: TodoState = {
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
     const querySnapshot = await getDocs(collection(db, 'todos'))
-    return querySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})) as Todo[]
+    return querySnapshot.docs.map((doc) => ({
+        id: doc.id, 
+        ...doc.data(),
+    })) as Todo[]
 })
 
-export const addTodo = createAsyncThunk('todo/add', async ({text, date}: {text: string, date: string})=> {
-    const newTodo = {text, completed: false, date}
+export const addTodo = createAsyncThunk('todo/add', async ({text, date, time}: {text: string, date: string, time: string})=> {
+    const newTodo = {text, completed: false, date, time}
     const docRef = await addDoc(collection(db, 'todos'), newTodo)
     return {id: docRef.id, ...newTodo} as Todo
 }) 
